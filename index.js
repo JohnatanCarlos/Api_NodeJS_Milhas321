@@ -35,27 +35,16 @@ app.get('/automovel', (req, res) => {
     });
 });
 
-// Selecionar VEÍCULO por ID
-app.get("/automovel/:id", (req, res) => {
-    var params = [req.params.id]
-    db.get(`SELECT * FROM TB_AUTOMOVEL where ID_VEICULO = ?`, [params], (err, row) => {
-        if (err) {
-            res.status(400).json({ "error": err.message });
-            return;
-        }
-        res.status(200).json(row);
-    });
-});
 
 // Contar todos os VEÍCULOS DISPONIVEIS
 app.get('/automovel/disponivel', (req, res) => {
-    db.all('SELECT COUNT(ID_VEICULO) FROM TB_AUTOMOVEL WHERE FLAG_ATIVO = 1 AND FLAG_DEVOLVIDO = 1;', [], (err, rows) => {
+    db.get('SELECT COUNT(ID_VEICULO) FROM TB_AUTOMOVEL WHERE FLAG_ATIVO = 1 AND FLAG_DEVOLVIDO = 1', [], (err, row) => {
         if (err) {
             res.status(400).json({ "error": err.message });
             return;
         }
-        
-        res.status(200).json(rows);
+        console.log(row);
+        res.status(200).json(row);
 
     });
 });
@@ -74,15 +63,27 @@ app.get('/automovel/ocupados', (req, res) => {
 });
 
 // Contar todos os VEÍCULOS INATIVOS
-app.get('/automovel/ocupados', (req, res) => {
-    db.all('SELECT COUNT(ID_VEICULO) FROM TB_AUTOMOVEL WHERE FLAG_ATIVO = 0 AND FLAG_DEVOLVIDO = 1;', [], (err, rows) => {
+app.get('/automovel/inativos', (req, res) => {
+    db.get('SELECT COUNT(ID_VEICULO) FROM TB_AUTOMOVEL WHERE FLAG_ATIVO = 0 AND FLAG_DEVOLVIDO = 1;', [], (err, row) => {
         if (err) {
             res.status(400).json({ "error": err.message });
             return;
         }
         
-        res.status(200).json(rows);
+        res.status(200).json(row);
 
+    });
+});
+
+// Selecionar VEÍCULO por ID
+app.get("/automovel/:id", (req, res) => {
+    var params = [req.params.id]
+    db.get(`SELECT * FROM TB_AUTOMOVEL where ID_VEICULO = ?`, [params], (err, row) => {
+        if (err) {
+            res.status(400).json({ "error": err.message });
+            return;
+        }
+        res.status(200).json(row);
     });
 });
 
