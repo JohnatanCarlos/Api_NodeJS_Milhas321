@@ -139,7 +139,7 @@ app.patch("/automovel/:id", (req, res) => {
 
 // Deletar VEÍCULO
 app.delete("/automovel/:id", (req, res) => {
-    db.run(`DELETE FROM TB_AUTOMOVEL WHERE FROM ID_VEICULO = ?`,
+    db.run(`DELETE FROM TB_AUTOMOVEL WHERE ID_VEICULO = ?`,
         req.params.id,
         function (err, result) {
             if (err) {
