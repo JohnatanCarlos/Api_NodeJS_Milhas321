@@ -51,20 +51,20 @@ app.get('/automovel/disponivel', (req, res) => {
 
 // Contar todos os VEÍCULOS OCUPADOS
 app.get('/automovel/ocupados', (req, res) => {
-    db.all('SELECT COUNT(ID_VEICULO) FROM TB_AUTOMOVEL WHERE FLAG_ATIVO = 1 AND FLAG_DEVOLVIDO = 0;', [], (err, rows) => {
+    db.get('SELECT COUNT(ID_VEICULO) FROM TB_AUTOMOVEL WHERE FLAG_ATIVO = 1 AND FLAG_DEVOLVIDO = 0', [], (err, row) => {
         if (err) {
             res.status(400).json({ "error": err.message });
             return;
         }
         
-        res.status(200).json(rows);
+        res.status(200).json(row);
 
     });
 });
 
 // Contar todos os VEÍCULOS INATIVOS
 app.get('/automovel/inativos', (req, res) => {
-    db.get('SELECT COUNT(ID_VEICULO) FROM TB_AUTOMOVEL WHERE FLAG_ATIVO = 0 AND FLAG_DEVOLVIDO = 1;', [], (err, row) => {
+    db.get('SELECT COUNT(ID_VEICULO) FROM TB_AUTOMOVEL WHERE FLAG_ATIVO = 0 AND FLAG_DEVOLVIDO = 1', [], (err, row) => {
         if (err) {
             res.status(400).json({ "error": err.message });
             return;
@@ -72,18 +72,6 @@ app.get('/automovel/inativos', (req, res) => {
         
         res.status(200).json(row);
 
-    });
-});
-
-// Selecionar VEÍCULO por ID
-app.get("/automovel/:id", (req, res) => {
-    var params = [req.params.id]
-    db.get(`SELECT * FROM TB_AUTOMOVEL where ID_VEICULO = ?`, [params], (err, row) => {
-        if (err) {
-            res.status(400).json({ "error": err.message });
-            return;
-        }
-        res.status(200).json(row);
     });
 });
 
@@ -103,6 +91,18 @@ app.post("/automovel", (req, res) => {
                 "idAutomovel": this.lastID
             })
         });
+});
+
+// Selecionar VEÍCULO por ID
+app.get("/automovel/:id", (req, res) => {
+    var params = [req.params.id]
+    db.get(`SELECT * FROM TB_AUTOMOVEL where ID_VEICULO = ?`, [params], (err, row) => {
+        if (err) {
+            res.status(400).json({ "error": err.message });
+            return;
+        }
+        res.status(200).json(row);
+    });
 });
 
 
@@ -244,14 +244,14 @@ app.get('/reserva', (req, res) => {
 });
 
 // Contar RESERVA em Atrasos
-app.get('/reserva', (req, res) => {
-    db.all('SELECT COUNT(ID_LOCACAO) FROM TB_LOCACAO WHERE DATA_DEVOLUCAO < DATE()', [], (err, rows) => {
+app.get('/reserva/atrasado', (req, res) => {
+    db.get('SELECT COUNT(ID_LOCACAO) FROM TB_LOCACAO WHERE DATA_DEVOLUCAO < DATE()', [], (err, row) => {
         if (err) {
             res.status(400).json({ "error": err.message });
             return;
         }
         
-        res.status(200).json(rows);
+        res.status(200).json(row);
 
     });
 });
