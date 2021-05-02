@@ -1,6 +1,6 @@
 ## Endpoint e Métodos disponiveis
 
--- VEÍCULO
+##### VEÍCULO
 `[GET] https://api-nodejs-milhas-back-end.herokuapp.com/automovel` Lista todos veículos
 
 `[GET] https://api-nodejs-milhas-back-end.herokuapp.com/automovel/:id` Retorna um veículo específico
@@ -22,8 +22,7 @@
 `[DELETE] https://api-nodejs-milhas-back-end.herokuapp.com/automovel/:id` Remove um veículo
 
 
-
--- CLIENTE
+##### CLIENTE
 `[GET] https://api-nodejs-milhas-back-end.herokuapp.com/cliente` Lista todos clientes
 
 `[GET] https://api-nodejs-milhas-back-end.herokuapp.com/cliente/:id` Retorna um cliente específico
@@ -35,8 +34,7 @@
 `[DELETE] https://api-nodejs-milhas-back-end.herokuapp.com/automovel/:id` Remove um cliente
 
 
-
--- LOCAÇÃO
+##### LOCAÇÃO
 `[GET] https://api-nodejs-milhas-back-end.herokuapp.com/reserva` Lista todas reservas
 
 `[GET] https://api-nodejs-milhas-back-end.herokuapp.com/reserva/atrasado` Conta todas reservas em atrasos
